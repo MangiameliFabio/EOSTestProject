@@ -13,7 +13,7 @@ var  eos_main_peer : EOSGMultiplayerPeer
 
 var user_id_patrick : String = "00029e58b276424b9c85d3b97c5a62f8"
 var user_id_fabio_laptop : String = "0002819d72664b7fb09f898104452f58"
-var user_id_office_pc : String = ""
+var user_id_office_pc : String = "0002fc098f044e70a0fec3e04e3d7a0b"
 var own_user_id : String = ""
 
 enum State {
@@ -192,24 +192,6 @@ func _process(_delta: float) -> void:
 		
 		match(type):
 			1: %Chat.text += "%d: %s \n" % [sender, buffer.get_string()]
-	
-	#while (_multiplayer_peer->get_available_packet_count()) {
-		#int sender = _multiplayer_peer->get_packet_peer();
-		#const uint8_t *packet;
-		#int len;
-#
-		#Error err = _multiplayer_peer->get_packet(&packet, len);
-		#ERR_FAIL_COND_V_MSG(err != OK, err, vformat("Error getting packet! %d", err));
-#
-		#_remote_sender_id = sender;
-		#process_packet(sender, packet, len);
-		#_remote_sender_id = 0;
-#
-		#update_status();
-		#if (last_connection_status != MultiplayerPeer::CONNECTION_CONNECTED) { // It's possible that processing a packet might have resulted in a disconnection, so check here.
-			#return OK;
-		#}
-	#}
 	
 	%ConnectedPeers.text = ""
 	
