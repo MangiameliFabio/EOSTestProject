@@ -72,7 +72,7 @@ func _on_init_EOS_clicked():
 	EOS.get_instance().logging_interface_callback.connect(_on_logging_interface_callback)
 	EOS.get_instance().p2p_interface_query_nat_type_callback.connect(_update_nat_type)
 
-	var res := EOS.Logging.set_log_level(EOS.Logging.LogCategory.AllCategories, EOS.Logging.LogLevel.VeryVerbose)
+	var res := EOS.Logging.set_log_level(EOS.Logging.LogCategory.AllCategories, EOS.Logging.LogLevel.Info)
 	if res != EOS.Result.Success:
 		%EOSMessagesLabel.text += "Failed to set log level: %s\n" % EOS.result_str(res)
 	
