@@ -83,9 +83,9 @@ func _on_init_EOS_clicked():
 
 func _on_logging_interface_callback(msg) -> void:
 	msg = EOS.Logging.LogMessage.from(msg) as EOS.Logging.LogMessage
-	print("SDK %s | %s" % [msg.category, msg.message])
+	#print("[%d] SDK %s | %s" % [Time.get_ticks_msec(), msg.category, msg.message])
 	if is_instance_valid(%EOSLogLabel):
-		%EOSLogLabel.text += "SDK %s | %s\n" % [msg.category, msg.message]
+		%EOSLogLabel.text += "[%d] SDK %s | %s\n" % [Time.get_ticks_msec(), msg.category, msg.message]
 
 func _anon_login() -> void:
 	# Login using Device ID (no user interaction/credentials required)
@@ -234,7 +234,10 @@ func _process(_delta: float) -> void:
 						%Chat.text += "%d: %s \n" % [sender, buffer.get_string()]
 					else:
 						chat_contents[socket_id] += "%d: %s \n" % [sender, buffer.get_string()]
-
+	
+	if current_mesh_id != "":
+		%UniqueID.text = "Unique ID: %d" % eos_peers[current_mesh_id].get_unique_id()
+	
 func _on_send():
 	var msg = %ChatMessage.text
 	%ChatMessage.text = ""
