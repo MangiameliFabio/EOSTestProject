@@ -182,13 +182,16 @@ func _process(_delta: float) -> void:
 		var recived_packed := eos_main_peer.get_packet()
 		
 		if not recived_packed:
-			printerr("PAcket is invalid")
+			printerr("Packet is invalid")
 			return
+
+		var buffer := StreamPeerBuffer.new()
+		buffer.data_array = recived_packed
 		
-		var type : int = recived_packed.decode_u8(0)
+		var type : int = buffer.get_8()
 		
 		match(type):
-			1: %Chat.text += "%d: %s \n" % [sender, recived_packed.decode_var(1)]
+			1: %Chat.text += "%d: %s \n" % [sender, buffer.get_string()]
 	
 	#while (_multiplayer_peer->get_available_packet_count()) {
 		#int sender = _multiplayer_peer->get_packet_peer();
