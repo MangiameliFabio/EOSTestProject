@@ -54,6 +54,7 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 
 [node name="InitializeButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Initialize Epic Online Services"
 
@@ -72,75 +73,70 @@ editable = false
 
 [node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="HBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 
-[node name="CreateMesh" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+[node name="CreateMesh" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Create Mesh"
 
-[node name="ConnectToFabio" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+[node name="ConnectToFabio" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Connect To Fabio Laptop"
 
-[node name="ConnectToPatrick" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+[node name="ConnectToPatrick" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Connect to Patrick"
 
-[node name="ConnectToOffice" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+[node name="ConnectToOffice" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Connect to Office PC"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Connect to ID"
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2"]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/ScrollContainer/Label"]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/ScrollContainer/Label"]
 layout_mode = 0
 offset_right = 559.0
 offset_bottom = 300.0
@@ -148,39 +144,65 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0.50928617, 0.50928617, 0.50928617, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Send"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="NatType" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Nat Type: Unkown"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_b3bc3")
 
-[node name="EOSMessageLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/ScrollContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="EOSMessageLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/ScrollContainer/Panel/MarginContainer"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_right = 569.0
-offset_bottom = 530.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [connection signal="button_down" from="MarginContainer/VBoxContainer/InitializeButton" to="." method="_on_init_EOS_clicked"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/CreateMesh" to="." method="_create_mesh"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/ConnectToFabio" to="." method="_connect_to_fabio"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/ConnectToPatrick" to="." method="_connect_to_patrick"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/ConnectToOffice" to="." method="_connect_to_office_pc"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/CreateMesh" to="." method="_create_mesh"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/ConnectToFabio" to="." method="_connect_to_fabio"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/ConnectToPatrick" to="." method="_connect_to_patrick"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/ConnectToOffice" to="." method="_connect_to_office_pc"]

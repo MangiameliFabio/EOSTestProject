@@ -96,6 +96,8 @@ func _anon_login() -> void:
 	user_login_info.display_name = "User"
 	login_options.user_login_info = user_login_info
 	EOS.Connect.ConnectInterface.login(login_options)
+	
+	%InitializeButton.disabled = true
 
 func _on_connect_login_callback(data: Dictionary) -> void:
 	if not data.success:
@@ -118,7 +120,7 @@ func _update_nat_type(data: Dictionary) -> void:
 	if not data.has("nat_type"): return
 	
 	var nat_type = data["nat_type"]
-	%EOSMessageLabel.text += "NatType: %s \n" % EOS.P2P.NATType.keys()[nat_type]
+	%NatType.text = "NatType: %s \n" % EOS.P2P.NATType.keys()[nat_type]
 
 func _create_mesh():
 	eos_main_peer = EOSGMultiplayerPeer.new()
