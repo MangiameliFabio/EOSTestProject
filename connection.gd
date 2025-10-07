@@ -9,12 +9,15 @@ const encryption_key: String = ""
 
 const MAX_CONNECTIONS = 20
 
-var  eos_main_peer : EOSGMultiplayerPeer
-
 var user_id_patrick : String = "00029e58b276424b9c85d3b97c5a62f8"
 var user_id_fabio_laptop : String = "0002819d72664b7fb09f898104452f58"
 var user_id_office_pc : String = "0002fc098f044e70a0fec3e04e3d7a0b"
 var own_user_id : String = ""
+
+var current_mesh_id : String = ""
+
+var eos_peers = {}
+var chat_contents = {}
 
 enum State {
 	NotInitialized,
@@ -124,47 +127,65 @@ func _update_nat_type(data: Dictionary) -> void:
 	%NatType.text = "NatType: %s" % EOS.P2P.NATType.keys()[nat_type]
 
 func _create_mesh():
-	eos_main_peer = EOSGMultiplayerPeer.new()
-	eos_main_peer.peer_connected.connect(_on_peer_connected)
+	var eos_peer = EOSGMultiplayerPeer.new()
+	eos_peer.peer_connected.connect(_on_peer_connected)
 	
-	var error := eos_main_peer.create_mesh("main")
+	var socket_id = %SocketID.text
+	if socket_id == "":
+		socket_id = "main"
+	
+	var error := eos_peer.create_mesh(socket_id)
 	if error:
 		%EOSMessagesLabel.text += "Cannot create mesh | Error: %s \n" % error
-	else:
-		%EOSMessagesLabel.text += "Created mesh with socket id: main \n"
-		%CreateMesh.disabled = true
+		return
+
+	%EOSMessagesLabel.text += "Created mesh with socket id: main \n"
+
+	var tab_amount = %MeshTabs.tab_count
+
+	for i in range(tab_amount):
+		var titel : String = %MeshTabs.get_tab_title(i)
+		if titel == socket_id:
+			%EOSMessagesLabel.text += "Socket id already added!\n"
+			return
+	
+	%MeshTabs.add_tab(socket_id)
+	%MeshTabs.current_tab = %MeshTabs.tab_count - 1
+	current_mesh_id = socket_id
+	
+	eos_peers[socket_id] = eos_peer
 
 func _connect_to_fabio():
 	if own_user_id == user_id_fabio_laptop:
 		%EOSMessagesLabel.text += "Don't connect to yourself!\n"
 		return
-	if not eos_main_peer:
+	if not eos_peers.has(current_mesh_id):
 		%EOSMessagesLabel.text += "MultiplayerPeer not initialized\n"
 		return
 	
-	eos_main_peer.add_mesh_peer(user_id_fabio_laptop)
+	eos_peers[current_mesh_id].add_mesh_peer(user_id_fabio_laptop)
 	%ConnectToFabio.disabled = true
 
 func _connect_to_patrick():
 	if own_user_id == user_id_patrick:
 		%EOSMessagesLabel.text += "Don't connect to yourself!\n"
 		return
-	if not eos_main_peer:
+	if not eos_peers.has(current_mesh_id):
 		%EOSMessagesLabel.text += "MultiplayerPeer not initialized\n"
 		return
 	
-	eos_main_peer.add_mesh_peer(user_id_patrick)
+	eos_peers[current_mesh_id].add_mesh_peer(user_id_patrick)
 	%ConnectToPatrick.disabled = true
 
 func _connect_to_office_pc():
 	if own_user_id == user_id_office_pc:
 		%EOSMessagesLabel.text += "Don't connect to yourself!\n"
 		return
-	if not eos_main_peer:
+	if not eos_peers.has(current_mesh_id):
 		%EOSMessagesLabel.text += "MultiplayerPeer not initialized\n"
 		return
 	
-	eos_main_peer.add_mesh_peer(user_id_office_pc)
+	eos_peers[current_mesh_id].add_mesh_peer(user_id_office_pc)
 	%ConnectToOffice.disabled = true
 
 func _on_peer_connected(id: int):
@@ -172,42 +193,58 @@ func _on_peer_connected(id: int):
 	%EOSMessagesLabel.text += "Peer %d connected\n" % id
 
 func _process(_delta: float) -> void:
-	if not eos_main_peer: return
-	
-	eos_main_peer.poll()
-	
-	while(eos_main_peer.get_available_packet_count()):
-		var sender := eos_main_peer.get_packet_peer()
+	for socket_id in eos_peers:
+		if not eos_peers[socket_id]: return
 		
-		var recived_packed := eos_main_peer.get_packet()
+		eos_peers[socket_id].poll()
 		
-		if not recived_packed:
-			printerr("Packet is invalid")
-			return
+		while(eos_peers[socket_id].get_available_packet_count()):
+			var sender : int = eos_peers[socket_id].get_packet_peer()
+			
+			var recived_packed : PackedByteArray = eos_peers[socket_id].get_packet()
+			
+			if not recived_packed:
+				printerr("Packet is invalid")
+				return
 
-		var buffer := StreamPeerBuffer.new()
-		buffer.data_array = recived_packed
+			var buffer := StreamPeerBuffer.new()
+			buffer.data_array = recived_packed
+			
+			var type : int = buffer.get_8()
+			
+			match(type):
+				1: 
+					if current_mesh_id == socket_id:
+						%Chat.text += "%d: %s \n" % [sender, buffer.get_string()]
+					else:
+						chat_contents[socket_id] += "%d: %s \n" % [sender, buffer.get_string()]
 		
-		var type : int = buffer.get_8()
-		
-		match(type):
-			1: %Chat.text += "%d: %s \n" % [sender, buffer.get_string()]
+		%ConnectedPeers.text = ""
 	
-	%ConnectedPeers.text = ""
-	
-	var peers := eos_main_peer.get_all_peers()
-	for peer in peers:
-		%ConnectedPeers.text += "Peer ID: %d | User ID: %s \n" % [peer, peers[peer]]
+	if eos_peers.has(current_mesh_id):
+		var peers : Dictionary = eos_peers[current_mesh_id].get_all_peers()
+		for peer in peers:
+			%ConnectedPeers.text += "Peer ID: %d | User ID: %s \n" % [peer, peers[peer]]
 
 func _on_send():
 	var msg = %ChatMessage.text
 	%ChatMessage.text = ""
 	
-	%Chat.text += "%d: %s \n" % [eos_main_peer.get_unique_id(), msg]
+	%Chat.text += "%d: %s \n" % [eos_peers[current_mesh_id].get_unique_id(), msg]
 	
 	var buffer := StreamPeerBuffer.new()
 	
 	buffer.put_8(1)
 	buffer.put_string(msg)
 	
-	eos_main_peer.put_packet(buffer.data_array)
+	#eos_main_peer.set_target_peer()
+	eos_peers[current_mesh_id].put_packet(buffer.data_array)
+
+
+func _on_mesh_tabs_tab_changed(tab: int) -> void:
+	chat_contents[current_mesh_id] = %Chat.text
+	%Chat.text = ""
+	current_mesh_id = %MeshTabs.get_tab_title(tab)
+	
+	if chat_contents.has(current_mesh_id):
+		%Chat.text = chat_contents[current_mesh_id]

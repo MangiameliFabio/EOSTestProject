@@ -71,6 +71,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 editable = false
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CreateMesh" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Create Mesh"
+
+[node name="SocketID" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Input socket id"
+
 [node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -89,11 +103,6 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2"]
 layout_mode = 2
-
-[node name="CreateMesh" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Create Mesh"
 
 [node name="ConnectToFabio" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
@@ -186,6 +195,15 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log"]
 layout_mode = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer"]
+layout_mode = 2
+
+[node name="MeshTabs" type="TabBar" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
@@ -256,8 +274,9 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 12
 
 [connection signal="button_down" from="MarginContainer/VBoxContainer/InitializeButton" to="." method="_on_init_EOS_clicked"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/CreateMesh" to="." method="_create_mesh"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/CreateMesh" to="." method="_create_mesh"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/ConnectToFabio" to="." method="_connect_to_fabio"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/ConnectToPatrick" to="." method="_connect_to_patrick"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/ConnectToOffice" to="." method="_connect_to_office_pc"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/HBoxContainer/SendButton" to="." method="_on_send"]
+[connection signal="tab_changed" from="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/HBoxContainer/MeshTabs" to="." method="_on_mesh_tabs_tab_changed"]
