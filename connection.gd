@@ -121,7 +121,7 @@ func _update_nat_type(data: Dictionary) -> void:
 	if not data.has("nat_type"): return
 	
 	var nat_type = data["nat_type"]
-	%NatType.text = "NatType: %s \n" % EOS.P2P.NATType.keys()[nat_type]
+	%NatType.text = "NatType: %s" % EOS.P2P.NATType.keys()[nat_type]
 
 func _create_mesh():
 	eos_main_peer = EOSGMultiplayerPeer.new()
@@ -168,4 +168,61 @@ func _connect_to_office_pc():
 	%ConnectToOffice.disabled = true
 
 func _on_peer_connected(id: int):
+	%SendButton.disabled = false
 	%EOSMessagesLabel.text += "Peer %d connected\n" % id
+
+func _process(_delta: float) -> void:
+	if not eos_main_peer: return
+	
+	eos_main_peer.poll()
+	
+	while(eos_main_peer.get_available_packet_count()):
+		var sender := eos_main_peer.get_packet_peer()
+		
+		var recived_packed := eos_main_peer.get_packet()
+		
+		if not recived_packed:
+			printerr("PAcket is invalid")
+			return
+		
+		var type : int = recived_packed.decode_u8(0)
+		
+		match(type):
+			1: %Chat.text += "%d: %s \n" % [sender, recived_packed.decode_var(1)]
+	
+	#while (_multiplayer_peer->get_available_packet_count()) {
+		#int sender = _multiplayer_peer->get_packet_peer();
+		#const uint8_t *packet;
+		#int len;
+#
+		#Error err = _multiplayer_peer->get_packet(&packet, len);
+		#ERR_FAIL_COND_V_MSG(err != OK, err, vformat("Error getting packet! %d", err));
+#
+		#_remote_sender_id = sender;
+		#process_packet(sender, packet, len);
+		#_remote_sender_id = 0;
+#
+		#update_status();
+		#if (last_connection_status != MultiplayerPeer::CONNECTION_CONNECTED) { // It's possible that processing a packet might have resulted in a disconnection, so check here.
+			#return OK;
+		#}
+	#}
+	
+	%ConnectedPeers.text = ""
+	
+	var peers := eos_main_peer.get_all_peers()
+	for peer in peers:
+		%ConnectedPeers.text += "Peer ID: %d | User ID: %s \n" % [peer, peers[peer]]
+
+func _on_send():
+	var msg = %ChatMessage.text
+	%ChatMessage.text = ""
+	
+	%Chat.text += "%d: %s \n" % [eos_main_peer.get_unique_id(), msg]
+	
+	var buffer := StreamPeerBuffer.new()
+	
+	buffer.put_8(1)
+	buffer.put_string(msg)
+	
+	eos_main_peer.put_packet(buffer.data_array)

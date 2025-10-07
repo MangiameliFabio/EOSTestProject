@@ -132,32 +132,41 @@ custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/ScrollContainer"]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/ScrollContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/ScrollContainer/Label"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0.50928617, 0.50928617, 0.50928617, 1)
 
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/ScrollContainer/ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Chat" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/ScrollContainer/ColorRect/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
+[node name="ChatMessage" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
+[node name="SendButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
+disabled = true
 text = "Send"
 
 [node name="NatType" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2"]
@@ -174,18 +183,39 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Connected Peers:"
+
+[node name="ConnectedPeers" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/ScrollContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_b3bc3")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/ScrollContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/ScrollContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -199,33 +229,35 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/ScrollContainer/Panel/MarginContainer"]
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/ScrollContainer/Panel/MarginContainer"]
 layout_mode = 2
 current_tab = 0
 
-[node name="EOSMessages" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/ScrollContainer/Panel/MarginContainer/TabContainer"]
+[node name="EOSMessages" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/ScrollContainer/Panel/MarginContainer/TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="EOSMessagesLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/ScrollContainer/Panel/MarginContainer/TabContainer/EOSMessages"]
+[node name="EOSMessagesLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/ScrollContainer/Panel/MarginContainer/TabContainer/EOSMessages"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EOSLog" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/ScrollContainer/Panel/MarginContainer/TabContainer"]
+[node name="EOSLog" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/ScrollContainer/Panel/MarginContainer/TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="EOSLogLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/ScrollContainer/Panel/MarginContainer/TabContainer/EOSLog"]
+[node name="EOSLogLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Log/VBoxContainer/ScrollContainer/Panel/MarginContainer/TabContainer/EOSLog"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
 
 [connection signal="button_down" from="MarginContainer/VBoxContainer/InitializeButton" to="." method="_on_init_EOS_clicked"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/CreateMesh" to="." method="_create_mesh"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/ConnectToFabio" to="." method="_connect_to_fabio"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/ConnectToPatrick" to="." method="_connect_to_patrick"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer/ConnectToOffice" to="." method="_connect_to_office_pc"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/VBoxContainer2/HBoxContainer/SendButton" to="." method="_on_send"]
