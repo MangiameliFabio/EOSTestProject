@@ -164,7 +164,6 @@ func _connect_to_fabio():
 		return
 	
 	eos_peers[current_mesh_id].add_mesh_peer(user_id_fabio_laptop)
-	%ConnectToFabio.disabled = true
 
 func _connect_to_patrick():
 	if own_user_id == user_id_patrick:
@@ -175,7 +174,6 @@ func _connect_to_patrick():
 		return
 	
 	eos_peers[current_mesh_id].add_mesh_peer(user_id_patrick)
-	%ConnectToPatrick.disabled = true
 
 func _connect_to_office_pc():
 	if own_user_id == user_id_office_pc:
@@ -186,11 +184,15 @@ func _connect_to_office_pc():
 		return
 	
 	eos_peers[current_mesh_id].add_mesh_peer(user_id_office_pc)
-	%ConnectToOffice.disabled = true
 
 func _on_peer_connected(id: int):
 	%SendButton.disabled = false
-	%EOSMessagesLabel.text += "Peer %d connected\n" % id
+	
+	var socket_id = ""
+	for mesh_id in eos_peers:
+		if (eos_peers[mesh_id] as EOSGMultiplayerPeer).has_peer(id):
+			socket_id = mesh_id
+	%EOSMessagesLabel.text += "Peer %d connected | Socket ID: %s\n" % [id, socket_id]
 
 func _process(_delta: float) -> void:
 	for socket_id in eos_peers:
