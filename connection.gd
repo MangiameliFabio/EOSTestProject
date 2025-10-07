@@ -210,7 +210,7 @@ func _on_peer_connected(id: int):
 
 func _process(_delta: float) -> void:
 	for socket_id in eos_peers:
-		if not eos_peers[socket_id]: return
+		if not eos_peers[socket_id]: continue
 		
 		eos_peers[socket_id].poll()
 		
@@ -221,7 +221,7 @@ func _process(_delta: float) -> void:
 			
 			if not recived_packed:
 				printerr("Packet is invalid")
-				return
+				continue
 
 			var buffer := StreamPeerBuffer.new()
 			buffer.data_array = recived_packed
@@ -237,6 +237,12 @@ func _process(_delta: float) -> void:
 	
 	if current_mesh_id != "":
 		%UniqueID.text = "Unique ID: %d" % eos_peers[current_mesh_id].get_unique_id()
+	
+	var list = EOSGPacketPeerMediator.get_sockets()
+	
+	%SocketIDList.text = ""
+	for socket in list:
+		%SocketIDList.text += "%s\n" % socket
 	
 func _on_send():
 	var msg = %ChatMessage.text
