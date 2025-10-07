@@ -1,0 +1,179 @@
+[gd_scene load_steps=3 format=3 uid="uid://do3whn3vdaxvi"]
+
+[ext_resource type="Script" uid="uid://bemj6gma7454r" path="res://connection.gd" id="1_b3bc3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b3bc3"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_b3bc3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2231029, 0.2231029, 0.22310287, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="InitializeButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Initialize Epic Online Services"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "EOS User ID:"
+
+[node name="UserID" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="CreateMesh" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Create Mesh"
+
+[node name="ConnectToFabio" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Connect To Fabio Laptop"
+
+[node name="ConnectToPatrick" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Connect to Patrick"
+
+[node name="ConnectToOffice" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Connect to Office PC"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Connect to ID"
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/ScrollContainer/Label"]
+layout_mode = 0
+offset_right = 559.0
+offset_bottom = 300.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.50928617, 0.50928617, 0.50928617, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Send"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_b3bc3")
+
+[node name="EOSMessageLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/ScrollContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 569.0
+offset_bottom = 530.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="button_down" from="MarginContainer/VBoxContainer/InitializeButton" to="." method="_on_init_EOS_clicked"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/CreateMesh" to="." method="_create_mesh"]
