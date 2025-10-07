@@ -154,6 +154,14 @@ func _create_mesh():
 	current_mesh_id = socket_id
 	
 	eos_peers[socket_id] = eos_peer
+	
+	var peer_list_scene = load("res://PeerList.tscn")
+	var node : PeerList = peer_list_scene.instantiate()
+	
+	node.Titel.text = "[%s] Connected Peers:" % socket_id
+	node.eos_peer = eos_peer
+	
+	%PeerListContainer.add_child(node)
 
 func _connect_to_fabio():
 	if own_user_id == user_id_fabio_laptop:
@@ -220,13 +228,6 @@ func _process(_delta: float) -> void:
 						%Chat.text += "%d: %s \n" % [sender, buffer.get_string()]
 					else:
 						chat_contents[socket_id] += "%d: %s \n" % [sender, buffer.get_string()]
-		
-		%ConnectedPeers.text = ""
-	
-	if eos_peers.has(current_mesh_id):
-		var peers : Dictionary = eos_peers[current_mesh_id].get_all_peers()
-		for peer in peers:
-			%ConnectedPeers.text += "Peer ID: %d | User ID: %s \n" % [peer, peers[peer]]
 
 func _on_send():
 	var msg = %ChatMessage.text
