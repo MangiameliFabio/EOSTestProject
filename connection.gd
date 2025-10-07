@@ -28,6 +28,9 @@ enum State {
 	JoiningServer,
 	ServerJoined
 }
+
+var socket_id_name_list : Array[String] = ["main", "voip", "chatting", "testing"]
+
 var current_state : State = State.NotInitialized
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -81,7 +84,8 @@ func _on_init_EOS_clicked():
 func _on_logging_interface_callback(msg) -> void:
 	msg = EOS.Logging.LogMessage.from(msg) as EOS.Logging.LogMessage
 	print("SDK %s | %s" % [msg.category, msg.message])
-	%EOSLogLabel.text += "SDK %s | %s\n" % [msg.category, msg.message]
+	if is_instance_valid(%EOSLogLabel):
+		%EOSLogLabel.text += "SDK %s | %s\n" % [msg.category, msg.message]
 
 func _anon_login() -> void:
 	# Login using Device ID (no user interaction/credentials required)
@@ -132,22 +136,24 @@ func _create_mesh():
 	
 	var socket_id = %SocketID.text
 	if socket_id == "":
-		socket_id = "main"
+		if socket_id_name_list.is_empty():
+			%EOSMessagesLabel.text += "No Socket IDs left!\n"
+			return
+		socket_id = socket_id_name_list.pop_front()
+	
+	var tab_amount = %MeshTabs.tab_count
+	for i in range(tab_amount):
+		var titel : String = %MeshTabs.get_tab_title(i)
+		if titel == socket_id:
+			%EOSMessagesLabel.text += "Socket ID already added!\n"
+			return
 	
 	var error := eos_peer.create_mesh(socket_id)
 	if error:
 		%EOSMessagesLabel.text += "Cannot create mesh | Error: %s \n" % error
 		return
 
-	%EOSMessagesLabel.text += "Created mesh with socket id: main \n"
-
-	var tab_amount = %MeshTabs.tab_count
-
-	for i in range(tab_amount):
-		var titel : String = %MeshTabs.get_tab_title(i)
-		if titel == socket_id:
-			%EOSMessagesLabel.text += "Socket id already added!\n"
-			return
+	%EOSMessagesLabel.text += "Created mesh with Socket ID: %s \n" % socket_id
 	
 	%MeshTabs.add_tab(socket_id)
 	%MeshTabs.current_tab = %MeshTabs.tab_count - 1

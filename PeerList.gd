@@ -13,4 +13,4 @@ func _process(_delta: float) -> void:
 		
 		var peers : Dictionary = eos_peer.get_all_peers()
 		for peer in peers:
-			List.text += "Peer ID: %d | User ID: %s \n" % [peer, peers[peer]]
+			List.text += "Peer ID: %d\n" % [peer]
