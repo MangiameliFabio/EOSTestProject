@@ -88,18 +88,22 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 
 [node name="CreateMesh" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Create Mesh"
 
 [node name="ConnectToFabio" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Connect To Fabio Laptop"
 
 [node name="ConnectToPatrick" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Connect to Patrick"
 
 [node name="ConnectToOffice" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Connect to Office PC"
 
@@ -177,3 +181,6 @@ size_flags_vertical = 3
 
 [connection signal="button_down" from="MarginContainer/VBoxContainer/InitializeButton" to="." method="_on_init_EOS_clicked"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/CreateMesh" to="." method="_create_mesh"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/ConnectToFabio" to="." method="_connect_to_fabio"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/ConnectToPatrick" to="." method="_connect_to_patrick"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/VBoxContainer/ConnectToOffice" to="." method="_connect_to_office_pc"]

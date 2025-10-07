@@ -129,36 +129,40 @@ func _create_mesh():
 		%EOSMessageLabel.text += "Cannot create mesh | Error: %s \n" % error
 	else:
 		%EOSMessageLabel.text += "Created mesh with socket id: main \n"
+		%CreateMesh.disabled = true
 
 func _connect_to_fabio():
 	if own_user_id == user_id_fabio_laptop:
-		%EOSMessageLabel.text += "Don't connect to yourself!"
+		%EOSMessageLabel.text += "Don't connect to yourself!\n"
 		return
 	if not eos_main_peer:
-		%EOSMessageLabel.text += "MultiplayerPeer not initialized"
+		%EOSMessageLabel.text += "MultiplayerPeer not initialized\n"
 		return
 	
 	eos_main_peer.add_mesh_peer(user_id_fabio_laptop)
+	%ConnectToFabio.disabled = true
 
 func _connect_to_patrick():
 	if own_user_id == user_id_patrick:
-		%EOSMessageLabel.text += "Don't connect to yourself!"
+		%EOSMessageLabel.text += "Don't connect to yourself!\n"
 		return
 	if not eos_main_peer:
-		%EOSMessageLabel.text += "MultiplayerPeer not initialized"
+		%EOSMessageLabel.text += "MultiplayerPeer not initialized\n"
 		return
 	
 	eos_main_peer.add_mesh_peer(user_id_patrick)
+	%ConnectToPatrick.disabled = true
 
 func _connect_to_office_pc():
 	if own_user_id == user_id_office_pc:
-		%EOSMessageLabel.text += "Don't connect to yourself!"
+		%EOSMessageLabel.text += "Don't connect to yourself!\n"
 		return
 	if not eos_main_peer:
-		%EOSMessageLabel.text += "MultiplayerPeer not initialized"
+		%EOSMessageLabel.text += "MultiplayerPeer not initialized\n"
 		return
 	
 	eos_main_peer.add_mesh_peer(user_id_office_pc)
+	%ConnectToOffice.disabled = true
 
 func _on_peer_connected(id: int):
 	%EOSMessageLabel.text += "Peer %d connected\n" % id
